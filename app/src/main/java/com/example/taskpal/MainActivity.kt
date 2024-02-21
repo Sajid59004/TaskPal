@@ -1,23 +1,21 @@
 package com.example.taskpal
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.taskpal.R.id.gfg
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var geeksforgeeks: TextView
+    private lateinit var mytext: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         // Initialize TextView
-        geeksforgeeks = findViewById(R.id.gfg) ?: return // Perform null check
+        mytext = findViewById(R.id.mytext) ?: return // Perform null check
 
         // Set text for TextView
-        geeksforgeeks.text = "GeeksForGeeks(Firebase Authentication)"
+        mytext.text = "Home Page"
     }
 }

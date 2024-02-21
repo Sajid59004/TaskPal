@@ -26,6 +26,12 @@ class RegistrationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
 
+        val Login: Button = findViewById(R.id.login)
+
+        Login.setOnClickListener {
+            Intent(this@RegistrationActivity, LoginActivity::class.java).also { startActivity(it) }
+        }
+
         // Initialize FirebaseApp
         FirebaseApp.initializeApp(this)
 

@@ -9,9 +9,6 @@ import android.widget.Button
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.AuthResult
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 
 class LoginActivity : AppCompatActivity() {
 
@@ -24,6 +21,12 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        val Signup: Button = findViewById(R.id.register)
+
+        Signup.setOnClickListener {
+            Intent(this@LoginActivity, RegistrationActivity::class.java).also { startActivity(it) }
+        }
 
         // taking instance of FirebaseAuth
         mAuth = FirebaseAuth.getInstance()
@@ -38,6 +41,7 @@ class LoginActivity : AppCompatActivity() {
         Btn.setOnClickListener {
             loginUserAccount()
         }
+
     }
 
     private fun loginUserAccount() {
@@ -70,7 +74,7 @@ class LoginActivity : AppCompatActivity() {
 
         // signin existing user
         mAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this, OnCompleteListener<AuthResult> { task ->
+            .addOnCompleteListener(this, { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(
                         applicationContext,
