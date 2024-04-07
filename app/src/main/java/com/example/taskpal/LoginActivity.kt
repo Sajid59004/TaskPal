@@ -74,7 +74,7 @@ class LoginActivity : AppCompatActivity() {
 
         // signin existing user
         mAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this, { task ->
+            .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(
                         applicationContext,
@@ -87,7 +87,7 @@ class LoginActivity : AppCompatActivity() {
 
                     // if sign-in is successful
                     // intent to home activity
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                     startActivity(intent)
                 } else {
 
@@ -101,6 +101,6 @@ class LoginActivity : AppCompatActivity() {
                     // hide the progress bar
                     progressBar.visibility = View.GONE
                 }
-            })
+            }
     }
 }

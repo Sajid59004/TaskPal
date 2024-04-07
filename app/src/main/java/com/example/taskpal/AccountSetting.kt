@@ -12,19 +12,19 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class MainActivity : AppCompatActivity() {
+class AccountSetting : AppCompatActivity() {
 
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.account_settings)
 
-
+        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance()
 
-
+        // Initialize Google SignIn options
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -32,38 +32,37 @@ class MainActivity : AppCompatActivity() {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
-
-
+        // Initialize views
+        val myButton = findViewById<Button>(R.id.button6)
         val textView = findViewById<TextView>(R.id.name)
+        val signOutButton = findViewById<Button>(R.id.button16)
 
-        val auth = Firebase.auth
-        val user = auth.currentUser
-
-        if (user != null) {
-            val userName = user.displayName
-            textView.text = "Welcome, " + userName
-        } else {
-            // Handle the case where the user is not signed in
+        // Set OnClickListener for home button
+        myButton.setOnClickListener {
+            // Replace HomeActivity::class.java with the desired activity
+            Intent(this@AccountSetting, HomeActivity::class.java).also { startActivity(it) }
         }
 
+        // Check if user is signed in and update UI
+        val currentUser = mAuth.currentUser
+        currentUser?.let {
+            textView.text = "Welcome, ${it.displayName}"
+        }
 
-
-        // Inside onCreate() method
-        val sign_out_button = findViewById<Button>(R.id.logout_button)
-        sign_out_button.setOnClickListener {
+        // Set OnClickListener for sign out button
+        signOutButton.setOnClickListener {
             signOutAndStartSignInActivity()
         }
-
     }
 
     private fun signOutAndStartSignInActivity() {
         mAuth.signOut()
 
         mGoogleSignInClient.signOut().addOnCompleteListener(this) {
-            // Optional: Update UI or show a message to the user
-            val intent = Intent(this@MainActivity, AccountCreate::class.java)
+            val intent = Intent(this@AccountSetting, AccountCreate::class.java)
             startActivity(intent)
             finish()
         }
     }
 }
+

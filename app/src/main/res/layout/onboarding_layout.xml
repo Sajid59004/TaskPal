@@ -36,7 +36,7 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="28dp"
+            android:layout_marginBottom="4dp"
             android:text="Your convenience in\n   making a todo list"
             android:textColor="@color/black"
             android:textSize="26sp"
@@ -50,9 +50,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
+            android:layout_marginTop="44dp"
             android:text="Here's a mobile platform that helps you create task\n         or to list so that it can help you in every job\n                                  easier and faster."
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="@+id/imageView2"
+            app:layout_constraintHorizontal_bias="0.586"
             app:layout_constraintStart_toStartOf="@+id/imageView2"
             app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 

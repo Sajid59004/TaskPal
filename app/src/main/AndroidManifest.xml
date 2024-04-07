@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -13,44 +14,62 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskPal"
         tools:targetApi="31">
-
-
+        <activity
+            android:name=".ProjectActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FilterViewsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CalendarViewActivity"
+            android:exported="false" />
         <activity
             android:name=".RegistrationActivity"
-            android:exported="true">
-
-        </activity>
-
+            android:exported="true" />
         <activity
             android:name=".LoginActivity"
             android:exported="true" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true" />
-
         <activity
             android:name=".SplashActivity"
-            android:exported="true" >
+            android:exported="true">
+
             <!-- Intent filter for launching the app -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Onboarding1"
             android:exported="true" />
-
         <activity
             android:name=".Onboarding2"
             android:exported="true" />
-
         <activity
             android:name=".AccountCreate"
             android:exported="true" />
-
+        <activity
+            android:name=".ChooseTheme"
+            android:exported="true" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AccountSetting"
+            android:exported="true" />
+        <activity
+            android:name=".AddTask"
+            android:exported="true" />
+        <activity
+            android:name=".App"
+            android:exported="true" />
+        <activity
+            android:name=".TaskInbox"
+            android:exported="true" />
     </application>
 
 </manifest>
