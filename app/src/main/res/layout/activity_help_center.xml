@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/Back"
+        android:layout_width="49dp"
+        android:layout_height="45dp"
+        android:backgroundTint="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/Back"
+        app:layout_constraintEnd_toEndOf="@+id/Back"
+        app:layout_constraintStart_toStartOf="@+id/Back"
+        app:layout_constraintTop_toTopOf="@+id/Back"
+        app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
+
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Help Center"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/Back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.383"
+        app:layout_constraintStart_toEndOf="@+id/Back"
+        app:layout_constraintTop_toTopOf="@+id/Back"
+        app:layout_constraintVertical_bias="0.523" />
+
+    <Button
+        android:id="@+id/button18"
+        android:layout_width="165dp"
+        android:layout_height="135dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="84dp"
+        android:backgroundTint="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="165dp"
+        android:layout_height="135dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button18"
+        app:layout_constraintEnd_toEndOf="@+id/button18"
+        app:layout_constraintStart_toStartOf="@+id/button18"
+        app:layout_constraintTop_toTopOf="@+id/button18"
+        app:srcCompat="@drawable/platforms" />
+
+    <Button
+        android:id="@+id/button19"
+        android:layout_width="165dp"
+        android:layout_height="135dp"
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/button18"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button18"
+        app:layout_constraintTop_toTopOf="@+id/button18" />
+
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="165dp"
+        android:layout_height="135dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button19"
+        app:layout_constraintEnd_toEndOf="@+id/button19"
+        app:layout_constraintStart_toStartOf="@+id/button19"
+        app:layout_constraintTop_toTopOf="@+id/button19"
+        app:srcCompat="@drawable/usagequestion" />
+
+    <Button
+        android:id="@+id/button20"
+        android:layout_width="165dp"
+        android:layout_height="135dp"
+        android:backgroundTint="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/button18"
+        app:layout_constraintTop_toBottomOf="@+id/button18" />
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="165dp"
+        android:layout_height="135dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button20"
+        app:layout_constraintEnd_toEndOf="@+id/button20"
+        app:layout_constraintStart_toStartOf="@+id/button20"
+        app:layout_constraintTop_toTopOf="@+id/button20"
+        app:srcCompat="@drawable/applicationusage" />
+
+    <Button
+        android:id="@+id/button21"
+        android:layout_width="165dp"
+        android:layout_height="135dp"
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/button20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button20"
+        app:layout_constraintTop_toTopOf="@+id/button20" />
+
+    <ImageView
+        android:id="@+id/imageView15"
+        android:layout_width="165dp"
+        android:layout_height="135dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button21"
+        app:layout_constraintEnd_toEndOf="@+id/button21"
+        app:layout_constraintStart_toStartOf="@+id/button21"
+        app:layout_constraintTop_toTopOf="@+id/button21"
+        app:srcCompat="@drawable/updatetimeapp" />
+
+    <Button
+        android:id="@+id/button22"
+        android:layout_width="165dp"
+        android:layout_height="135dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/button20"
+        app:layout_constraintTop_toBottomOf="@+id/button20" />
+
+    <ImageView
+        android:id="@+id/imageView16"
+        android:layout_width="165dp"
+        android:layout_height="135dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button22"
+        app:layout_constraintEnd_toEndOf="@+id/button22"
+        app:layout_constraintStart_toStartOf="@+id/button22"
+        app:layout_constraintTop_toTopOf="@+id/button22"
+        app:srcCompat="@drawable/crossplatform" />
+
+    <Button
+        android:id="@+id/button23"
+        android:layout_width="165dp"
+        android:layout_height="135dp"
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/button22"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button22"
+        app:layout_constraintTop_toTopOf="@+id/button22" />
+
+    <ImageView
+        android:id="@+id/imageView17"
+        android:layout_width="165dp"
+        android:layout_height="135dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button23"
+        app:layout_constraintEnd_toEndOf="@+id/button23"
+        app:layout_constraintStart_toStartOf="@+id/button23"
+        app:layout_constraintTop_toTopOf="@+id/button23"
+        app:srcCompat="@drawable/updatesreminder" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,13 +24,13 @@ class TaskListAdapter(private val taskDataset: ArrayList<TaskModel>) :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val taskNameTv: TextView
         val taskStatusTv: TextView
-        var containerLl: LinearLayout
+//        var containerLl: LinearLayout
 
         init {
             // Define click listener for the ViewHolder's View
             taskNameTv = view.findViewById<View>(R.id.taskNameTv) as TextView
             taskStatusTv = view.findViewById<View>(R.id.taskStatusTv) as TextView
-            containerLl = view.findViewById<View>(R.id.containerLL) as LinearLayout
+//            containerLl = view.findViewById<View>(R.id.containerLL) as LinearLayout
         }
     }
 
@@ -57,47 +57,47 @@ class TaskListAdapter(private val taskDataset: ArrayList<TaskModel>) :
         } else {
             viewHolder.taskStatusTv.setBackgroundColor(Color.parseColor("#ffffff"))
         }
-        viewHolder.containerLl.setOnLongClickListener { view ->
-            val popupMenu = PopupMenu(view.context, viewHolder.containerLl)
-            popupMenu.inflate(R.menu.taskmenu)
-            popupMenu.show()
-            popupMenu.setOnMenuItemClickListener { menuItem ->
-                if (menuItem.itemId == R.id.deleteMenu) {
-                    taskDataset[position].taskId?.let {
-                        FirebaseFirestore.getInstance().collection("tasks")
-                            .document(it).delete()
-                            .addOnSuccessListener(OnSuccessListener<Void?> {
-                                Toast.makeText(view.context, "Item deleted", Toast.LENGTH_SHORT)
-                                    .show()
-                                viewHolder.containerLl.visibility = View.GONE
-                            })
-                    }
-                }
-                if (menuItem.itemId == R.id.markCompleteMenu) {
-                    val completedTask = taskDataset[position]
-                    completedTask.taskStatus = "completed"
-                    taskDataset[position].taskId?.let {
-                        FirebaseFirestore.getInstance().collection("tasks")
-                            .document(it)
-                            .set(completedTask).addOnSuccessListener(OnSuccessListener<Void?> {
-                                Toast.makeText(
-                                    view.context,
-                                    "Task Item Marked As Completed",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            })
-                    }
-                    viewHolder.taskStatusTv.setBackgroundColor(
-                        Color.parseColor(
-                            "#00FF00"
-                        )
-                    )
-                    viewHolder.taskStatusTv.text = "COMPLETED"
-                }
-                false
-            }
-            false
-        }
+//        viewHolder.containerLl.setOnLongClickListener { view ->
+//            val popupMenu = PopupMenu(view.context, viewHolder.containerLl)
+//            popupMenu.inflate(R.menu.taskmenu)
+//            popupMenu.show()
+//            popupMenu.setOnMenuItemClickListener { menuItem ->
+//                if (menuItem.itemId == R.id.deleteMenu) {
+//                    taskDataset[position].taskId?.let {
+//                        FirebaseFirestore.getInstance().collection("tasks")
+//                            .document(it).delete()
+//                            .addOnSuccessListener(OnSuccessListener<Void?> {
+//                                Toast.makeText(view.context, "Item deleted", Toast.LENGTH_SHORT)
+//                                    .show()
+//                                viewHolder.containerLl.visibility = View.GONE
+//                            })
+//                    }
+//                }
+//                if (menuItem.itemId == R.id.markCompleteMenu) {
+//                    val completedTask = taskDataset[position]
+//                    completedTask.taskStatus = "completed"
+//                    taskDataset[position].taskId?.let {
+//                        FirebaseFirestore.getInstance().collection("tasks")
+//                            .document(it)
+//                            .set(completedTask).addOnSuccessListener(OnSuccessListener<Void?> {
+//                                Toast.makeText(
+//                                    view.context,
+//                                    "Task Item Marked As Completed",
+//                                    Toast.LENGTH_SHORT
+//                                ).show()
+//                            })
+//                    }
+//                    viewHolder.taskStatusTv.setBackgroundColor(
+//                        Color.parseColor(
+//                            "#00FF00"
+//                        )
+//                    )
+//                    viewHolder.taskStatusTv.text = "COMPLETED"
+//                }
+//                false
+//            }
+//            false
+//        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -109,4 +109,5 @@ class TaskListAdapter(private val taskDataset: ArrayList<TaskModel>) :
         taskDataset.clear()
         notifyDataSetChanged()
     }
+
 }

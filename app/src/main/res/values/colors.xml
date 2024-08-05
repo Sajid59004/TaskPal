@@ -8,6 +8,10 @@
     <color name="colorAccent2">#000000</color>
     <color name="colorAccent3">#FF0000</color>
     <color name="colorAccent4">#0000FF</color>
+    <color name="colorAccent5">#FFA500</color>
+    <color name="colorAccent6">#FFFF00</color>
+    <color name="colorAccent7">#013220</color>
+    <color name="colorAccent8">#ADD8E6</color>
 
 
 </resources>

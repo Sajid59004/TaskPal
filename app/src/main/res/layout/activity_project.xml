@@ -66,6 +66,7 @@
         app:srcCompat="@drawable/baseline_search_24" />
 
 
+
     <View
         android:id="@+id/divider"
         android:layout_width="409dp"

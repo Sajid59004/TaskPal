@@ -27,6 +27,11 @@ class LoginActivity : AppCompatActivity() {
         Signup.setOnClickListener {
             Intent(this@LoginActivity, RegistrationActivity::class.java).also { startActivity(it) }
         }
+        val reset: Button = findViewById(R.id.reset)
+
+        reset.setOnClickListener {
+            Intent(this@LoginActivity, ForgotPassword::class.java).also { startActivity(it) }
+        }
 
         // taking instance of FirebaseAuth
         mAuth = FirebaseAuth.getInstance()

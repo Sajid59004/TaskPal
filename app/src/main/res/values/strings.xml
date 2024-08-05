@@ -3,4 +3,16 @@
     <string name="facebook_app_id">1131005411597842</string>
     <string name="fb_login_protocol_scheme">fb1131005411597842</string>
     <string name="default_web_client_id">mrhashtag292@gmail.com</string>
+    <string name="privacy_policy_title">Privacy Policy</string>
+    <string name="privacy_policy_content">h</string>
+    <string name="new_task">New Task</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="email">Email</string>
+    <string name="logout">Logout</string>
+    <string name="hello_blank_fragment">hello,</string>
+    <string-array name="priority_array">
+        <item>Low</item>
+        <item>Normal</item>
+        <item>Urgent</item>
+    </string-array>
 </resources>

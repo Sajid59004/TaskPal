@@ -1,49 +1,51 @@
 package com.example.taskpal
 
-import android.annotation.SuppressLint
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.taskpal.R
+import com.example.taskpal.adapter.TaskAdapter
+import com.example.taskpal.model.TaskModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class CalendarViewActivity : AppCompatActivity() {
-    @SuppressLint("MissingInflatedId")
+
+    private lateinit var adapter: TaskAdapter
+    private lateinit var taskRecyclerView: RecyclerView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar_view)
 
-        val imageViewHome = findViewById<ImageView>(R.id.home)
-        val imageViewInbox = findViewById<ImageView>(R.id.inbox)
-//        val imageViewCalendarView = findViewById<ImageView>(R.id.CalendarView)
-        val imageViewFilterViews = findViewById<ImageView>(R.id.FilterViews)
-        val imageViewProject = findViewById<ImageView>(R.id.project)
-        val goBack = findViewById<Button>(R.id.button6)
+        taskRecyclerView = findViewById(R.id.taskRecyclerView)
 
+        // Set up RecyclerView
+        adapter = TaskAdapter(context = this)
+        taskRecyclerView.layoutManager = LinearLayoutManager(this)
+        taskRecyclerView.adapter = adapter
 
-        imageViewHome.setOnClickListener {
-            startActivity(Intent(this@CalendarViewActivity, HomeActivity::class.java))
-        }
+        loadTasks()
+    }
 
-        imageViewInbox.setOnClickListener {
-            startActivity(Intent(this@CalendarViewActivity, TaskInbox::class.java))
-        }
+    private fun loadTasks() {
+        val db = Firebase.firestore
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val userId = currentUser?.email ?: return
 
-//        imageViewCalendarView.setOnClickListener {
-//            startActivity(Intent(this@CalendarViewActivity, CalendarViewActivity::class.java))
-//        }
-
-        imageViewFilterViews.setOnClickListener {
-            startActivity(Intent(this@CalendarViewActivity, FilterViewsActivity::class.java))
-        }
-
-        imageViewProject.setOnClickListener {
-            startActivity(Intent(this@CalendarViewActivity, ProjectActivity::class.java))
-        }
-
-        goBack.setOnClickListener{
-            finish()
-        }
-
+        db.collection("tasks")
+            .whereEqualTo("userId", userId)
+            .get()
+            .addOnSuccessListener { documents ->
+                val tasks = documents.map { document ->
+                    document.toObject(TaskModel::class.java)
+                }
+                adapter.setTasks(tasks)
+            }
+            .addOnFailureListener { e ->
+                // Handle the error
+            }
     }
 }

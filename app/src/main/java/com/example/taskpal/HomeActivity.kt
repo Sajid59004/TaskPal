@@ -2,23 +2,18 @@ package com.example.taskpal
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.app.TimePickerDialog
 import android.content.Intent
-import android.icu.text.SimpleDateFormat
-import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextClock
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.taskpal.model.TaskModel
 import com.google.android.material.card.MaterialCardView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HomeActivity : AppCompatActivity() {
 
@@ -48,22 +43,15 @@ class HomeActivity : AppCompatActivity() {
 
         findViewById<ImageView>(R.id.imageViewAdd).setBackgroundColor(themeColor)
 
-
         // Initialize UI components
-        val textAlarmTime: TextClock = findViewById(R.id.textClockDate)
         val materialCardView = findViewById<MaterialCardView>(R.id.materialCardView)
         val imageViewSettings = findViewById<ImageView>(R.id.settings)
-//        val imageViewHome = findViewById<ImageView>(R.id.home)
         val imageViewInbox = findViewById<ImageView>(R.id.inbox)
         val imageViewCalendarView = findViewById<ImageView>(R.id.CalendarView)
         val imageViewFilterViews = findViewById<ImageView>(R.id.FilterViews)
         val imageViewProject = findViewById<ImageView>(R.id.project)
 
         // Set onClickListeners
-        textAlarmTime.setOnClickListener {
-            showTimePickerDialog()
-        }
-
         materialCardView.setOnClickListener {
             showAddTaskDialog()
         }
@@ -71,10 +59,6 @@ class HomeActivity : AppCompatActivity() {
         imageViewSettings.setOnClickListener {
             startActivity(Intent(this@HomeActivity, AccountSetting::class.java))
         }
-
-//        imageViewHome.setOnClickListener {
-//            startActivity(Intent(this@HomeActivity, HomeActivity::class.java))
-//        }
 
         imageViewInbox.setOnClickListener {
             startActivity(Intent(this@HomeActivity, TaskInbox::class.java))
@@ -91,25 +75,6 @@ class HomeActivity : AppCompatActivity() {
         imageViewProject.setOnClickListener {
             startActivity(Intent(this@HomeActivity, ProjectActivity::class.java))
         }
-
-    }
-
-    private fun showTimePickerDialog() {
-        val calendar = Calendar.getInstance()
-        val hour = calendar.get(Calendar.HOUR_OF_DAY)
-        val minute = calendar.get(Calendar.MINUTE)
-
-        val timePickerDialog = TimePickerDialog(
-            this,
-            { _, selectedHour, selectedMinute ->
-                // Handle time selection
-                // You can implement any logic here if needed
-            },
-            hour,
-            minute,
-            false
-        )
-        timePickerDialog.show()
     }
 
     private fun showAddTaskDialog() {
@@ -118,8 +83,22 @@ class HomeActivity : AppCompatActivity() {
         val dialogView = inflater.inflate(R.layout.popup_layout, null)
         builder.setView(dialogView)
 
-        val editTextTask = dialogView.findViewById<EditText>(R.id.inputTaskName)
-        val buttonAddTask = dialogView.findViewById<Button>(R.id.taskSaveBtn)
+        val editTextTask = dialogView.findViewById<EditText>(R.id.editTaskName)
+        val editTextTaskDescription = dialogView.findViewById<EditText>(R.id.editTaskDescription)
+        val editTextDueDate = dialogView.findViewById<EditText>(R.id.editDueDate)
+        val editTextLocation = dialogView.findViewById<EditText>(R.id.editLocation)
+        val spinnerPriority = dialogView.findViewById<Spinner>(R.id.spinnerPriority)
+        val buttonAddTask = dialogView.findViewById<Button>(R.id.addTaskButton)
+
+        // Set up the Spinner
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.priority_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinnerPriority.adapter = adapter
+        }
 
         val dialog = builder.create()
 
@@ -131,26 +110,51 @@ class HomeActivity : AppCompatActivity() {
 
         buttonAddTask.setOnClickListener {
             val taskName = editTextTask.text.toString().trim()
-            if (taskName.isNotEmpty()) {
-                // Add task to Firestore
-                addTaskToFirestore(taskName)
-                // Dismiss the dialog
-                dialog.dismiss()
+            val taskDescription = editTextTaskDescription.text.toString().trim()
+            val dueDate = editTextDueDate.text.toString().trim()
+            val location = editTextLocation.text.toString().trim()
+            val priority = spinnerPriority.selectedItem.toString()
+
+            if (taskName.isNotEmpty() && dueDate.isNotEmpty()) {
+                // Convert dueDate string to Date object
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val dueDateObj: Date? = try {
+                    dateFormat.parse(dueDate)
+                } catch (e: Exception) {
+                    null
+                }
+
+                if (dueDateObj != null) {
+                    // Add task to Firestore
+                    addTaskToFirestore(taskName, taskDescription, priority, dueDateObj, location)
+                    // Dismiss the dialog
+                    dialog.dismiss()
+                } else {
+                    editTextDueDate.error = "Invalid date format"
+                }
             } else {
-                // Show an error message if task name is empty
-                editTextTask.error = "Task name cannot be empty"
+                if (taskName.isEmpty()) {
+                    editTextTask.error = "Task name cannot be empty"
+                }
+                if (dueDate.isEmpty()) {
+                    editTextDueDate.error = "Due date cannot be empty"
+                }
             }
         }
 
         dialog.show()
     }
 
-    private fun addTaskToFirestore(taskName: String) {
+    private fun addTaskToFirestore(taskName: String, taskDescription: String, priority: String, dueDate: Date, location: String) {
         // Create a new task object with default values for taskStatus and userId
         val task = TaskModel().apply {
             this.taskName = taskName
             this.taskStatus = "Pending"
-            this.userId = auth.currentUser?.uid
+            this.userId = auth.currentUser?.email.toString()
+            this.priority = priority
+            this.dueDate = dueDate.toString()
+            this.location = location
+            this.taskDescription = taskDescription
         }
 
         // Add task to Firestore

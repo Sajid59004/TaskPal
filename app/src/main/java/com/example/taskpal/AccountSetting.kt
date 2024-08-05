@@ -6,11 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
 import android.widget.Button
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignIn.*
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 class AccountSetting : AppCompatActivity() {
 
@@ -21,6 +20,28 @@ class AccountSetting : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.account_settings)
 
+        val EditProfile = findViewById<Button>(R.id.button9)
+        EditProfile.setOnClickListener {
+            Intent(this@AccountSetting, EditProfileActivity::class.java).also { startActivity(it) }
+        }
+
+        val helpCenter = findViewById<Button>(R.id.button15)
+        helpCenter.setOnClickListener {
+            Intent(this@AccountSetting, HelpCenterActivity::class.java).also { startActivity(it) }
+        }
+
+        val themes = findViewById<Button>(R.id.button10)
+        themes.setOnClickListener {
+            Intent(this@AccountSetting, ThemesActivity::class.java).also { startActivity(it) }
+        }
+
+        val policy = findViewById<Button>(R.id.button14)
+        policy.setOnClickListener {
+            Intent(this@AccountSetting, PrivacyPolicy::class.java).also { startActivity(it) }
+        }
+
+        val userEmailTextView: TextView = findViewById(R.id.textView16)
+
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance()
 
@@ -30,7 +51,7 @@ class AccountSetting : AppCompatActivity() {
             .requestEmail()
             .build()
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        mGoogleSignInClient = getClient(this, gso)
 
         // Initialize views
         val myButton = findViewById<Button>(R.id.button6)
@@ -47,21 +68,17 @@ class AccountSetting : AppCompatActivity() {
         val currentUser = mAuth.currentUser
         currentUser?.let {
             textView.text = "Welcome, ${it.displayName}"
+            // Set user email
+        }
+
+        currentUser?.let { user ->
+            // Set user email
+            userEmailTextView.text = user.email
         }
 
         // Set OnClickListener for sign out button
         signOutButton.setOnClickListener {
-            signOutAndStartSignInActivity()
-        }
-    }
-
-    private fun signOutAndStartSignInActivity() {
-        mAuth.signOut()
-
-        mGoogleSignInClient.signOut().addOnCompleteListener(this) {
-            val intent = Intent(this@AccountSetting, AccountCreate::class.java)
-            startActivity(intent)
-            finish()
+            Intent(this@AccountSetting, LogoutActivity::class.java).also { startActivity(it) }
         }
     }
 }
