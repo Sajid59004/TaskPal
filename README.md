@@ -78,4 +78,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-For any inquiries, please contact [adesharabrijesh8@gmail.com](mailto:adesharabrijesh8@gmail.com).
+For any inquiries, please contact [sajidaliansari091@gmail.com](https://www.linkedin.com/in/ansari-sajid-ali-a60067248/).
