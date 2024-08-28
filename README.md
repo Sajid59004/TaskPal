@@ -23,17 +23,20 @@ TaskPal is a comprehensive task management application designed to help users ef
 - **Responsive Design**: User-friendly interface across different devices.
 
 ## Screenshots
-![Home Screen](screenshots/home_screen.png)
+![Home Screen](![Screenshot 2024-08-26 232717](https://github.com/user-attachments/assets/09d9a567-1ba8-471e-8b20-48ccc67d30d6)
+)
 
-![Add Task](screenshots/add_task.png)
+![Add Task](![Screenshot 2024-08-26 232905](https://github.com/user-attachments/assets/42aa3288-1b23-4820-9e96-30ec268fa9c5)
+)
 
-![Calendar View](screenshots/calendar_view.png)
+![Profile](![Screenshot 2024-08-26 232938](https://github.com/user-attachments/assets/9dfc870f-65c4-4ed1-b0a8-9c01150f0ba9)
+)
 
 
 ## Installation
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/AdesharaBrijesh/TaskPal.git
+   git clone https://github.com/Sajid59004/TaskPal.git
    cd TaskPal
    ```
 2.  **Open the project in Android Studio**.
